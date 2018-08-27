@@ -10,20 +10,20 @@ Vue.use(Router)
 import Layout from '../views/layout/Layout'
 
 /**
-* hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
-* alwaysShow: true               if set true, will always show the root menu, whatever its child routes length
-*                                if not set alwaysShow, only more than one route under the children
-*                                it will becomes nested mode, otherwise not show the root menu
-* redirect: noredirect           if `redirect:noredirect` will no redirct in the breadcrumb
-* name:'router-name'             the name is used by <keep-alive> (must set!!!)
-* meta : {
+ * hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
+ * alwaysShow: true               if set true, will always show the root menu, whatever its child routes length
+ *                                if not set alwaysShow, only more than one route under the children
+ *                                it will becomes nested mode, otherwise not show the root menu
+ * redirect: noredirect           if `redirect:noredirect` will no redirct in the breadcrumb
+ * name:'router-name'             the name is used by <keep-alive> (must set!!!)
+ * meta : {
     title: 'title'               the name show in submenu and breadcrumb (recommend set)
     icon: 'svg-name'             the icon show in the sidebar,
   }
-**/
+ **/
 export const constantRouterMap = [
-  { path: '/login', component: () => import('@/views/login/index'), hidden: true },
-  { path: '/404', component: () => import('@/views/404'), hidden: true },
+  {path: '/login', component: () => import('@/views/login/index'), hidden: true},
+  {path: '/404', component: () => import('@/views/404'), hidden: true},
 
   {
     path: '/',
@@ -38,23 +38,136 @@ export const constantRouterMap = [
   },
 
   {
+    path: '/lotteryActivity',
+    component: Layout,
+    redirect: '/lotteryActivity/index',
+    name: 'lotteryActivity',
+    meta: {title: 'lotteryActivity', icon: 'example'},
+    children: [
+      {
+        path: 'index',
+        name: 'Table',
+        component: () => import('@/views/lotteryActivity/index'),
+        meta: {title: '抽奖活动管理', icon: 'table'}
+      },
+      {
+        path: 'detail',
+        name: 'detail',
+        component: () => import('@/views/lotteryActivity/detail'),
+        meta: {title: '新建抽奖', icon: 'tree'}
+      }
+    ]
+  },
+
+  {
+    path: '/applicationActivity',
+    component: Layout,
+    redirect: '/applicationActivity/index',
+    name: 'applicationActivity',
+    meta: {title: 'applicationActivity', icon: 'example'},
+    children: [
+      {
+        path: 'index',
+        name: 'Table',
+        component: () => import('@/views/applicationActivity/index'),
+        meta: {title: '申领活动管理', icon: 'table'}
+      },
+      {
+        path: 'detail',
+        name: 'detail',
+        component: () => import('@/views/applicationActivity/detail'),
+        meta: {title: '申领创建', icon: 'tree'}
+      }
+    ]
+  },
+
+  {
+    path: '/brandActivity',
+    component: Layout,
+    redirect: '/brandActivity/index',
+    name: 'brandActivity',
+    meta: {title: 'brandActivity', icon: 'example'},
+    children: [
+      {
+        path: 'index',
+        name: 'Table',
+        component: () => import('@/views/brandActivity/index'),
+        meta: {title: '品牌活动管理', icon: 'table'}
+      },
+      {
+        path: 'detail',
+        name: 'detail',
+        component: () => import('@/views/brandActivity/detail'),
+        meta: {title: '品牌活动创建', icon: 'tree'}
+      }
+    ]
+  },
+
+  {
+    path: '/drawTheOrder',
+    component: Layout,
+    redirect: '/drawTheOrder/index',
+    name: 'drawTheOrder',
+    meta: {title: '抽奖订单', icon: 'example'},
+    children: [
+      {
+        path: 'index',
+        name: 'Table',
+        component: () => import('@/views/drawTheOrder/index'),
+        meta: {title: '抽奖订单', icon: 'table'}
+      }
+    ]
+  },
+
+  {
+    path: '/claimsForOrders',
+    component: Layout,
+    redirect: '/claimsForOrders/index',
+    name: 'claimsForOrders',
+    meta: {title: '申领订单', icon: 'example'},
+    children: [
+      {
+        path: 'index',
+        name: 'Table',
+        component: () => import('@/views/claimsForOrders/index'),
+        meta: {title: '申领订单', icon: 'table'}
+      }
+    ]
+  },
+  {
+    path: '/audit',
+    component: Layout,
+    redirect: '/audit/index',
+    name: 'audit',
+    meta: {title: '上首页审核', icon: 'example'},
+    children: [
+      {
+        path: 'index',
+        name: 'Table',
+        component: () => import('@/views/audit/index'),
+        meta: {title: '上首页审核', icon: 'table'}
+      }
+    ]
+  },
+
+  {
     path: '/example',
     component: Layout,
     redirect: '/example/table',
     name: 'Example',
-    meta: { title: 'Example', icon: 'example' },
+    meta: {title: 'Example', icon: 'example'},
     children: [
       {
         path: 'table',
         name: 'Table',
         component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
+        meta: {title: 'Table', icon: 'table'}
       },
       {
         path: 'tree',
         name: 'Tree',
         component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
+        meta: {title: 'Tree', icon: 'tree'}
       }
     ]
   },
@@ -67,7 +180,7 @@ export const constantRouterMap = [
         path: 'index',
         name: 'Form',
         component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
+        meta: {title: 'Form', icon: 'form'}
       }
     ]
   },
@@ -86,21 +199,21 @@ export const constantRouterMap = [
         path: 'menu1',
         component: () => import('@/views/nested/menu1/index'), // Parent router-view
         name: 'Menu1',
-        meta: { title: 'menu1' }
+        meta: {title: 'menu1'}
       },
       {
         path: 'menu2',
         component: () => import('@/views/nested/menu2/index'),
-        meta: { title: 'menu2' }
+        meta: {title: 'menu2'}
       }
     ]
   },
 
-  { path: '*', redirect: '/404', hidden: true }
+  {path: '*', redirect: '/404', hidden: true}
 ]
 
 export default new Router({
   // mode: 'history', //后端支持可开
-  scrollBehavior: () => ({ y: 0 }),
+  scrollBehavior: () => ({y: 0}),
   routes: constantRouterMap
 })
