@@ -15,7 +15,7 @@ export default {
         size: 10,
         total: 100,
         current_page: 1,
-        layout: "sizes, prev, pager, next",
+        layout: 'sizes, prev, pager, next'
       }
     }
   },
@@ -30,8 +30,8 @@ export default {
     },
 
     handleSubmit() {
-      this.pagination.current_page = 1;
+      this.pagination.current_page = 1
       this.fetchData()
-    },
+    }
   }
 }

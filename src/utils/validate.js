@@ -35,5 +35,5 @@ export {
   isvalidUsername,
   validateURL,
   validateLowerCase,
-  validateUpperCase,
+  validateUpperCase
 }

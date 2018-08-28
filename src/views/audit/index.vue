@@ -2,34 +2,32 @@
   <div class="app-container">
     <el-form :inline="true" :model="formInline" class="demo-form-inline">
       <el-form-item label="商品名称">
-        <el-input v-model="formInline.name" placeholder="请输入内容"></el-input>
+        <el-input v-model="formInline.name" placeholder="请输入内容"/>
       </el-form-item>
       <el-form-item label="上架时间">
         <el-date-picker
           v-model="formInline.grounding_time"
-          type="datetimerange"
           :format="format"
           :value-format="format"
+          type="datetimerange"
           align="right"
           unlink-panels
           range-separator="—"
           start-placeholder="开始日期"
-          end-placeholder="结束日期">
-        </el-date-picker>
+          end-placeholder="结束日期"/>
       </el-form-item>
       <el-form-item>
         <el-form-item label="开奖时间">
           <el-date-picker
             v-model="formInline.prize_time"
-            type="datetimerange"
             :format="format"
             :value-format="format"
+            type="datetimerange"
             align="right"
             unlink-panels
             range-separator="—"
             start-placeholder="开始日期"
-            end-placeholder="结束日期">
-          </el-date-picker>
+            end-placeholder="结束日期"/>
         </el-form-item>
       </el-form-item>
       <el-form-item>
@@ -52,8 +50,9 @@
       </el-table-column>
       <el-table-column label="商品图片">
         <template slot-scope="scope">
-          <img class="table_img"
-               src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80"></img>
+          <img
+            class="table_img"
+            src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80"></img>
         </template>
       </el-table-column>
       <el-table-column label="赞助商" align="center">
@@ -95,47 +94,46 @@
 
     <div class="pagination">
       <el-pagination
-        @size-change="handleSubmit"
-        @current-change="fetchData"
         :current-page.sync="pagination.current_page"
         :page-sizes="pagination.size_ary"
         :page-size="pagination.size"
         :layout="pagination.layout"
-        :total="pagination.total">
-      </el-pagination>
+        :total="pagination.total"
+        @size-change="handleSubmit"
+        @current-change="fetchData"/>
     </div>
 
   </div>
 </template>
 
 <script>
-  import {getList} from '@/api/table'
-  import tableMixin from '@/mixins/tableMixin'
+import request from '@/utils/request'
+import tableMixin from '@/mixins/tableMixin'
 
-  export default {
-    mixins: [tableMixin],
+export default {
+  mixins: [tableMixin],
 
-    methods: {
-      fetchData() {
-        this.listLoading = true
-        getList({
-          ...this.formInline,
-          size: this.pagination.size,
-          current_page: this.pagination.current_page,
-        }).then(response => {
-          this.list = response.data.items.slice(0, this.pagination.size)
-          this.listLoading = false
-        })
-      },
+  methods: {
+    fetchData() {
+      this.listLoading = true
+      api.getList({
+        ...this.formInline,
+        size: this.pagination.size,
+        current_page: this.pagination.current_page
+      }).then(response => {
+        this.list = response.data.items.slice(0, this.pagination.size)
+        this.listLoading = false
+      })
+    },
 
-      handleEdit(index, row) {
-        console.log(index, row);
-      },
+    handleEdit(index, row) {
+      console.log(index, row)
+    },
 
-      handleDelete(index, row) {
-        console.log(index, row);
-      },
-
+    handleDelete(index, row) {
+      console.log(index, row)
     }
+
   }
+}
 </script>

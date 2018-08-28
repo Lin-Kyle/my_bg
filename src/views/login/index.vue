@@ -1,143 +1,114 @@
 <template>
   <div class="login-container">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left" :validate-on-rule-change="false">
-      <el-radio-group v-model="status">
-        <el-radio-button label="Login"></el-radio-button>
-        <el-radio-button label="Register"></el-radio-button>
-      </el-radio-group>
+    <el-form
+      ref="loginForm"
+      :model="loginForm"
+      :rules="loginRules"
+      :validate-on-rule-change="false"
+      class="login-form"
+      auto-complete="on"
+      label-position="left">
 
-      <template v-if="status === 'Login'">
-        <el-form-item prop="username_login">
+      <h3 class="title">Login</h3>
+      <el-form-item prop="username">
         <span class="svg-container svg-container_login">
           <svg-icon icon-class="user"/>
         </span>
-          <el-input v-model="loginForm.username_login" name="username_login" type="text" auto-complete="on"
-                    placeholder="username"/>
-        </el-form-item>
-        <el-form-item prop="password_login">
+        <el-input v-model="loginForm.username" name="username" type="text" auto-complete="on" placeholder="username"/>
+      </el-form-item>
+      <el-form-item prop="password">
         <span class="svg-container">
           <svg-icon icon-class="password"/>
         </span>
-          <el-input
-            :type="pwdType"
-            v-model="loginForm.password_login"
-            name="password_login"
-            auto-complete="on"
-            placeholder="password"
-            @keyup.enter.native="handleLogin"/>
-          <span class="show-pwd" @click="showPwd">
+        <el-input
+          :type="pwdType"
+          v-model="loginForm.password"
+          name="password"
+          auto-complete="on"
+          placeholder="password"
+          @keyup.enter.native="handleLogin"/>
+        <span class="show-pwd" @click="showPwd">
           <svg-icon icon-class="eye"/>
         </span>
-        </el-form-item>
-      </template>
-      <template v-else>
-        <el-form-item prop="username">
-        <span class="svg-container svg-container_login">
-          <svg-icon icon-class="user"/>
-        </span>
-          <el-input v-model="loginForm.username" name="username" type="text" auto-complete="on" placeholder="username"/>
-        </el-form-item>
-        <el-form-item prop="password">
-        <span class="svg-container">
-          <svg-icon icon-class="password"/>
-        </span>
-          <el-input
-            :type="pwdType"
-            v-model="loginForm.password"
-            name="password"
-            auto-complete="on"
-            placeholder="password"
-            @keyup.enter.native="handleLogin"/>
-          <span class="show-pwd" @click="showPwd">
-          <svg-icon icon-class="eye"/>
-        </span>
-        </el-form-item>
-      </template>
+      </el-form-item>
 
-
-      <el-form-item>
-        <el-button :loading="loading" type="primary" style="width:100%;" @click.native.prevent="handleLogin">
-          Sign in
+      <el-form-item class="btn">
+        <el-button :loading="loading" type="primary" @click.native.prevent="handleLogin">
+          登陸
+        </el-button>
+        <el-button :loading="loading" @click.native.prevent="handleLogin">
+          注冊
         </el-button>
       </el-form-item>
+
       <div class="tips">
-        <span style="margin-right:20px;">username: admin</span>
-        <span> password: admin</span>
+        <span style="margin-right:20px;">login_username: admin</span>
+        <span> login_password: admin</span>
       </div>
+
     </el-form>
   </div>
 </template>
 
 <script>
-  import {isvalidUsername} from '@/utils/validate'
+import { isvalidUsername } from '@/utils/validate'
 
-
-  export default {
-    name: 'Login',
-    data() {
-      const validateUsername = (rule, value, callback) => {
-        if (!isvalidUsername(value)) {
-          callback(new Error('请输入正确的用户名'))
-        } else {
-          callback()
-        }
-      }
-      const validatePass = (rule, value, callback) => {
-        if (value.length < 5) {
-          callback(new Error('密码不能小于5位'))
-        } else {
-          callback()
-        }
-      }
-      return {
-        status: 'Login',
-        loginForm: {
-          username: 'admin',
-          password: 'admin'
-        },
-        loginRules: {
-          username: [{required: true, trigger: 'blur', validator: validateUsername}],
-          password: [{required: true, trigger: 'blur', validator: validatePass}]
-        },
-        loading: false,
-        pwdType: 'password'
-      }
-    },
-    methods: {
-      showPwd() {
-        if (this.pwdType === 'password') {
-          this.pwdType = ''
-        } else {
-          this.pwdType = 'password'
-        }
-      },
-      handleLogin() {
-        this.$refs.loginForm.validate(valid => {
-          if (valid) {
-            this.loading = true
-            if(this.status === 'Login'){
-              this.$store.dispatch('Login', this.loginForm).then(() => {
-                this.loading = false
-                this.$router.push({path: '/'})
-              }).catch(() => {
-                this.loading = false
-              })
-            }else{
-              this.$store.dispatch('Login', this.loginForm).then(() => {
-                this.loading = false
-                this.$router.push({path: '/'})
-              }).catch(() => {
-                this.loading = false
-              })
-            }
-          } else {
-            console.log('error submit!!')
-            return false
-          }
-        })
+export default {
+  name: 'Login',
+  data() {
+    const validateUsername = (rule, value, callback) => {
+      if (!isvalidUsername(value)) {
+        callback(new Error('请输入正确的用户名'))
+      } else {
+        callback()
       }
     }
+    const validatePass = (rule, value, callback) => {
+      if (value.length < 5) {
+        callback(new Error('密码不能小于5位'))
+      } else {
+        callback()
+      }
+    }
+    return {
+      loginForm: {
+        username: 'admin',
+        password: 'admin'
+      },
+      loginRules: {
+        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
+        password: [{ required: true, trigger: 'blur', validator: validatePass }]
+      },
+      loading: false,
+      pwdType: 'password'
+    }
+  },
+  methods: {
+    showPwd() {
+      if (this.pwdType === 'password') {
+        this.pwdType = ''
+      } else {
+        this.pwdType = 'password'
+      }
+    },
+    handleLogin() {
+      this.$refs.loginForm.validate(valid => {
+        if (valid) {
+          this.loading = true
+          this.$store.dispatch('Login', this.loginForm).then(() => {
+            this.loading = false
+            this.$router.push({ path: '/' })
+          }).catch(() => {
+            this.loading = false
+          })
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    }
   }
+}
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
@@ -170,11 +141,19 @@
       border-radius: 5px;
       color: #454545;
     }
+
+    .btn{
+      text-align: center;
+      border: 0;
+      button{
+        width: 48%;
+      }
+    }
   }
 
 </style>
 
-<style rel="stylesheet/scss" lang="scss" scoped>
+<style rel="stylesheet/scss" lang="scss">
   $bg: #2d3a4b;
   $dark_gray: #889aa4;
   $light_gray: #eee;

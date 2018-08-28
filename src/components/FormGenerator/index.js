@@ -3,7 +3,7 @@ import RenderFormGroup from './render-form-group'
 import { Form } from 'element-ui'
 
 export default {
-  render (h) {
+  render(h) {
     this.content.forEach(this.initItemValue) // handle default value
     return h(
       'el-form', {
@@ -37,7 +37,7 @@ export default {
     RenderFormItem,
     RenderFormGroup
   },
-  mounted () {
+  mounted() {
     this.$nextTick(() => {
       // proxy
       Object.keys(Form.methods).forEach((item) => {
@@ -56,7 +56,7 @@ export default {
       default: false
     }
   }),
-  data () {
+  data() {
     return {
       value: {} // 表单数据对象
     }
@@ -66,7 +66,7 @@ export default {
      * 初始化每个表单原子的默认值
      * @param  {Object} item 表单原子描述
      */
-    initItemValue (item) {
+    initItemValue(item) {
       if (!item.$id || this.value[item.$id] !== undefined) return
       let defaultVal
       if (item.$type === 'group') {
@@ -87,19 +87,19 @@ export default {
      * @param  {String} options.id 表单ID
      * @param  {All} options.value 表单数据
      */
-    updateValue ({ id, value }) {
+    updateValue({ id, value }) {
       this.value = Object.assign({}, this.value, {
         [id]: value
       })
-      console.log(this.value);
+      console.log(this.value)
     },
 
-    updateId(id){
+    updateId(id) {
       this.$emit('whichclick', id)
     },
 
     // 对外提供获取表单数据的函数
-    getFormValue () {
+    getFormValue() {
       return this.value
     }
   }

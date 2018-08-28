@@ -7,7 +7,8 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 /* Layout */
-import Layout from '../views/layout/Layout'
+import basicLayout from '@layout/basicLayout'
+import indexLayout from '@layout/indexLayout'
 
 /**
  * hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
@@ -22,198 +23,135 @@ import Layout from '../views/layout/Layout'
   }
  **/
 export const constantRouterMap = [
-  {path: '/login', component: () => import('@/views/login/index'), hidden: true},
-  {path: '/404', component: () => import('@/views/404'), hidden: true},
+  {
+    path: '/',
+    component: indexLayout,
+    redirect: '/dashboard',
+    name: 'user',
+    hidden: true,
+    children: [{
+      path: 'login',
+      component: () => import('@layout/indexLayout/components/login')
+    }, {
+      path: 'register',
+      component: () => import('@layout/indexLayout/components/register')
+    }]
+  },
+  { path: '/404', component: () => import('@/views/404'), hidden: true },
 
   {
     path: '/',
-    component: Layout,
-    redirect: '/dashboard',
+    component: basicLayout,
     name: 'Dashboard',
     hidden: true,
     children: [{
       path: 'dashboard',
-      component: () => import('@/views/dashboard/index')
+      component: () => import('@page/dashboard')
     }]
   },
 
   {
     path: '/lotteryActivity',
-    component: Layout,
-    redirect: '/lotteryActivity/index',
+    component: basicLayout,
     name: 'lotteryActivity',
-    meta: {title: 'lotteryActivity', icon: 'example'},
+    meta: { title: '抽奖活动管理', icon: 'example' },
     children: [
       {
         path: 'index',
-        name: 'Table',
-        component: () => import('@/views/lotteryActivity/index'),
-        meta: {title: '抽奖活动管理', icon: 'table'}
+        component: () => import('@page/lotteryActivity/index'),
+        meta: { title: '抽奖活动', icon: 'table' }
       },
       {
-        path: 'detail',
-        name: 'detail',
-        component: () => import('@/views/lotteryActivity/detail'),
-        meta: {title: '新建抽奖', icon: 'tree'}
+        path: 'detail/:id?',
+        component: () => import('@page/lotteryActivity/detail'),
+        meta: { title: '新建抽奖', icon: 'tree' },
+        hidden: true
       }
     ]
   },
-
   {
     path: '/applicationActivity',
-    component: Layout,
-    redirect: '/applicationActivity/index',
+    component: basicLayout,
     name: 'applicationActivity',
-    meta: {title: 'applicationActivity', icon: 'example'},
+    meta: { title: '申领活动管理', icon: 'example' },
     children: [
       {
         path: 'index',
-        name: 'Table',
-        component: () => import('@/views/applicationActivity/index'),
-        meta: {title: '申领活动管理', icon: 'table'}
+        component: () => import('@page/applicationActivity/index'),
+        meta: { title: '申领活动', icon: 'table' }
       },
       {
-        path: 'detail',
-        name: 'detail',
-        component: () => import('@/views/applicationActivity/detail'),
-        meta: {title: '申领创建', icon: 'tree'}
+        path: 'detail/:id?',
+        component: () => import('@page/applicationActivity/detail'),
+        meta: { title: '申领创建', icon: 'tree' },
+        hidden: true
       }
     ]
   },
-
   {
     path: '/brandActivity',
-    component: Layout,
-    redirect: '/brandActivity/index',
+    component: basicLayout,
     name: 'brandActivity',
-    meta: {title: 'brandActivity', icon: 'example'},
+    meta: { title: '品牌活动管理', icon: 'example' },
     children: [
       {
         path: 'index',
-        name: 'Table',
-        component: () => import('@/views/brandActivity/index'),
-        meta: {title: '品牌活动管理', icon: 'table'}
+        component: () => import('@page/brandActivity/index'),
+        meta: { title: '品牌活动', icon: 'table' }
       },
       {
-        path: 'detail',
-        name: 'detail',
-        component: () => import('@/views/brandActivity/detail'),
-        meta: {title: '品牌活动创建', icon: 'tree'}
+        path: 'detail/:id?',
+        component: () => import('@page/brandActivity/detail'),
+        meta: { title: '品牌活动创建', icon: 'tree' },
+        hidden: true
       }
     ]
   },
-
   {
     path: '/drawTheOrder',
-    component: Layout,
-    redirect: '/drawTheOrder/index',
+    component: basicLayout,
     name: 'drawTheOrder',
-    meta: {title: '抽奖订单', icon: 'example'},
+    meta: { title: '抽奖订单', icon: 'example' },
     children: [
       {
         path: 'index',
-        name: 'Table',
-        component: () => import('@/views/drawTheOrder/index'),
-        meta: {title: '抽奖订单', icon: 'table'}
+        component: () => import('@page/drawTheOrder/detail'),
+        meta: { title: '抽奖订单', icon: 'tree' }
       }
     ]
   },
-
   {
     path: '/claimsForOrders',
-    component: Layout,
-    redirect: '/claimsForOrders/index',
+    component: basicLayout,
     name: 'claimsForOrders',
-    meta: {title: '申领订单', icon: 'example'},
+    meta: { title: '申领订单', icon: 'example' },
     children: [
       {
         path: 'index',
-        name: 'Table',
-        component: () => import('@/views/claimsForOrders/index'),
-        meta: {title: '申领订单', icon: 'table'}
+        component: () => import('@page/claimsForOrders/detail'),
+        meta: { title: '申领订单', icon: 'tree' }
       }
     ]
   },
   {
     path: '/audit',
-    component: Layout,
-    redirect: '/audit/index',
+    component: basicLayout,
     name: 'audit',
-    meta: {title: '上首页审核', icon: 'example'},
+    meta: { title: '上首页审核', icon: 'example' },
     children: [
       {
         path: 'index',
-        name: 'Table',
-        component: () => import('@/views/audit/index'),
-        meta: {title: '上首页审核', icon: 'table'}
+        component: () => import('@page/audit/detail'),
+        meta: { title: '上首页审核', icon: 'tree' }
       }
     ]
   },
 
-  {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: {title: 'Example', icon: 'example'},
-    children: [
-      {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: {title: 'Table', icon: 'table'}
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: {title: 'Tree', icon: 'tree'}
-      }
-    ]
-  },
-
-  {
-    path: '/form',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: {title: 'Form', icon: 'form'}
-      }
-    ]
-  },
-
-  {
-    path: '/nested',
-    component: Layout,
-    redirect: '/nested/menu1',
-    name: 'Nested',
-    meta: {
-      title: 'nested',
-      icon: 'nested'
-    },
-    children: [
-      {
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        name: 'Menu1',
-        meta: {title: 'menu1'}
-      },
-      {
-        path: 'menu2',
-        component: () => import('@/views/nested/menu2/index'),
-        meta: {title: 'menu2'}
-      }
-    ]
-  },
-
-  {path: '*', redirect: '/404', hidden: true}
+  { path: '*', redirect: '/404', hidden: true }
 ]
 
 export default new Router({
   // mode: 'history', //后端支持可开
-  scrollBehavior: () => ({y: 0}),
+  scrollBehavior: () => ({ y: 0 }),
   routes: constantRouterMap
 })
