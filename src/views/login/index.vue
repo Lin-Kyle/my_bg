@@ -1,6 +1,6 @@
 <template>
   <div class="login-container">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left" validate-on-rule-change="false">
+    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left" :validate-on-rule-change="false">
       <el-radio-group v-model="status">
         <el-radio-button label="Login"></el-radio-button>
         <el-radio-button label="Register"></el-radio-button>
