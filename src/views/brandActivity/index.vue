@@ -34,6 +34,7 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="handleSubmit">查询</el-button>
+        <el-button @click="$router.push('detail')">新建抽奖</el-button>
       </el-form-item>
     </el-form>
 
@@ -109,40 +110,11 @@
 
 <script>
   import {getList} from '@/api/table'
+  import tableMixin from '@/mixins/tableMixin'
 
   export default {
-    filters: {
-      statusFilter(status) {
-        const statusMap = {
-          published: 'success',
-          draft: 'gray',
-          deleted: 'danger'
-        }
-        return statusMap[status]
-      }
-    },
-    data() {
-      return {
-        format: 'yyyy-MM-DD HH-mm',
-        formInline: {
-          name: '',
-          grounding_time: '',
-          prize_time: ''
-        },
-        list: null,
-        listLoading: true,
-        pagination: {
-          size_ary: [10, 20, 30, 40],
-          size: 10,
-          total: 100,
-          current_page: 1,
-          layout: "sizes, prev, pager, next",
-        }
-      }
-    },
-    created() {
-      this.fetchData()
-    },
+    mixins: [tableMixin],
+
     methods: {
       fetchData() {
         this.listLoading = true
@@ -154,15 +126,6 @@
           this.list = response.data.items.slice(0, this.pagination.size)
           this.listLoading = false
         })
-      },
-
-      handleSubmit() {
-        this.pagination.current_page = 1;
-        this.fetchData()
-      },
-
-      handleCurrentChange(val) {
-        this.fetchData()
       },
 
       handleEdit(index, row) {

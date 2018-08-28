@@ -38,6 +38,119 @@ export const constantRouterMap = [
   },
 
   {
+    path: '/lotteryActivity',
+    component: Layout,
+    redirect: '/lotteryActivity/index',
+    name: 'lotteryActivity',
+    meta: {title: 'lotteryActivity', icon: 'example'},
+    children: [
+      {
+        path: 'index',
+        name: 'Table',
+        component: () => import('@/views/lotteryActivity/index'),
+        meta: {title: '抽奖活动管理', icon: 'table'}
+      },
+      {
+        path: 'detail',
+        name: 'detail',
+        component: () => import('@/views/lotteryActivity/detail'),
+        meta: {title: '新建抽奖', icon: 'tree'}
+      }
+    ]
+  },
+
+  {
+    path: '/applicationActivity',
+    component: Layout,
+    redirect: '/applicationActivity/index',
+    name: 'applicationActivity',
+    meta: {title: 'applicationActivity', icon: 'example'},
+    children: [
+      {
+        path: 'index',
+        name: 'Table',
+        component: () => import('@/views/applicationActivity/index'),
+        meta: {title: '申领活动管理', icon: 'table'}
+      },
+      {
+        path: 'detail',
+        name: 'detail',
+        component: () => import('@/views/applicationActivity/detail'),
+        meta: {title: '申领创建', icon: 'tree'}
+      }
+    ]
+  },
+
+  {
+    path: '/brandActivity',
+    component: Layout,
+    redirect: '/brandActivity/index',
+    name: 'brandActivity',
+    meta: {title: 'brandActivity', icon: 'example'},
+    children: [
+      {
+        path: 'index',
+        name: 'Table',
+        component: () => import('@/views/brandActivity/index'),
+        meta: {title: '品牌活动管理', icon: 'table'}
+      },
+      {
+        path: 'detail',
+        name: 'detail',
+        component: () => import('@/views/brandActivity/detail'),
+        meta: {title: '品牌活动创建', icon: 'tree'}
+      }
+    ]
+  },
+
+  {
+    path: '/drawTheOrder',
+    component: Layout,
+    redirect: '/drawTheOrder/index',
+    name: 'drawTheOrder',
+    meta: {title: '抽奖订单', icon: 'example'},
+    children: [
+      {
+        path: 'index',
+        name: 'Table',
+        component: () => import('@/views/drawTheOrder/index'),
+        meta: {title: '抽奖订单', icon: 'table'}
+      }
+    ]
+  },
+
+  {
+    path: '/claimsForOrders',
+    component: Layout,
+    redirect: '/claimsForOrders/index',
+    name: 'claimsForOrders',
+    meta: {title: '申领订单', icon: 'example'},
+    children: [
+      {
+        path: 'index',
+        name: 'Table',
+        component: () => import('@/views/claimsForOrders/index'),
+        meta: {title: '申领订单', icon: 'table'}
+      }
+    ]
+  },
+  {
+    path: '/audit',
+    component: Layout,
+    redirect: '/audit/index',
+    name: 'audit',
+    meta: {title: '上首页审核', icon: 'example'},
+    children: [
+      {
+        path: 'index',
+        name: 'Table',
+        component: () => import('@/views/audit/index'),
+        meta: {title: '上首页审核', icon: 'table'}
+      }
+    ]
+  },
+
+  {
     path: '/example',
     component: Layout,
     redirect: '/example/table',
@@ -92,11 +205,6 @@ export const constantRouterMap = [
         path: 'menu2',
         component: () => import('@/views/nested/menu2/index'),
         meta: {title: 'menu2'}
-      },
-      {
-        path: 'menu3',
-        component: () => import('@/views/nested/menu3/index'),
-        meta: {title: 'menu3'}
       }
     ]
   },

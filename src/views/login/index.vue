@@ -11,7 +11,8 @@
         <span class="svg-container svg-container_login">
           <svg-icon icon-class="user"/>
         </span>
-          <el-input v-model="loginForm.username_login" name="username_login" type="text" auto-complete="on" placeholder="username"/>
+          <el-input v-model="loginForm.username_login" name="username_login" type="text" auto-complete="on"
+                    placeholder="username"/>
         </el-form-item>
         <el-form-item prop="password_login">
         <span class="svg-container">
@@ -114,12 +115,21 @@
         this.$refs.loginForm.validate(valid => {
           if (valid) {
             this.loading = true
-            this.$store.dispatch('Login', this.loginForm).then(() => {
-              this.loading = false
-              this.$router.push({path: '/'})
-            }).catch(() => {
-              this.loading = false
-            })
+            if(this.status === 'Login'){
+              this.$store.dispatch('Login', this.loginForm).then(() => {
+                this.loading = false
+                this.$router.push({path: '/'})
+              }).catch(() => {
+                this.loading = false
+              })
+            }else{
+              this.$store.dispatch('Login', this.loginForm).then(() => {
+                this.loading = false
+                this.$router.push({path: '/'})
+              }).catch(() => {
+                this.loading = false
+              })
+            }
           } else {
             console.log('error submit!!')
             return false
