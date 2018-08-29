@@ -91,7 +91,6 @@ export default {
       this.value = Object.assign({}, this.value, {
         [id]: value
       })
-      console.log(this.value)
     },
 
     updateId(id) {

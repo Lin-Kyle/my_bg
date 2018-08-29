@@ -34,10 +34,6 @@ export default {
                   value: val
                 })
               },
-              // 手动更新表单数据
-              focus: (value) => {
-                // console.log(focus);
-              }
             }
           }
         )

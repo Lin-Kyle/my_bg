@@ -37,7 +37,7 @@ export const constantRouterMap = [
       component: () => import('@layout/indexLayout/components/register')
     }]
   },
-  { path: '/404', component: () => import('@/views/404'), hidden: true },
+  { path: '/404', component: () => import('@page/404'), hidden: true },
 
   {
     path: '/',
