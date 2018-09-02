@@ -146,6 +146,19 @@ export const constantRouterMap = [
       }
     ]
   },
+  {
+    path: '/generator',
+    component: basicLayout,
+    name: 'generator',
+    meta: { title: '生成表单', icon: 'example' },
+    children: [
+      {
+        path: 'index',
+        component: () => import('@page/generator'),
+        meta: { title: '生成表单', icon: 'tree' }
+      }
+    ]
+  },
 
   { path: '*', redirect: '/404', hidden: true }
 ]
