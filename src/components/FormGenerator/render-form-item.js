@@ -72,6 +72,11 @@ export default {
           // 手动更新表单数据
           focus: (value) => {
             this.$emit('updateId', this.data.$id)
+          },
+
+          // 手动更新表单数据
+          change: (value) => {
+            this.$emit('updateId', this.data.$id)
           }
         }
       }, [
