@@ -1,3 +1,4 @@
+import draggable from 'vuedraggable'
 import RenderFormItem from './render-form-item'
 import RenderFormGroup from './render-form-group'
 import { Form } from 'element-ui'
@@ -5,7 +6,7 @@ import { Form } from 'element-ui'
 export default {
   render(h) {
     this.content.forEach(this.initItemValue) // handle default value
-    return h(
+    const dom = h(
       'el-form', {
         props: Object.assign({}, this._props, {
           model: this.value // 用于校验
@@ -16,7 +17,7 @@ export default {
         .map((item, index) => {
           const data = {
             props: {
-              key: index,
+              key: item.$id,
               data: item,
               value: this.value,
               itemValue: this.value[item.$id],
@@ -27,15 +28,22 @@ export default {
               updateId: this.updateId
             }
           }
-          if (item.$type === 'group') return h('render-form-group', data)
-          else return h('render-form-item', data)
+
+          if (item.$type === 'group') {
+            return h('render-form-group', data)
+          } else {
+            return h('render-form-item', data)
+          }
         })
         .concat(this.$slots.default)
     )
+    console.log(dom)
+    return dom
   },
   components: {
     RenderFormItem,
-    RenderFormGroup
+    RenderFormGroup,
+    draggable
   },
   mounted() {
     this.$nextTick(() => {
