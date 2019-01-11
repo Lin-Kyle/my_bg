@@ -34,7 +34,6 @@ export default {
   },
   render(h) {
     validator(this.data) // 对数据进行简单校验
-    console.log(this.data)
     return h(
       'el-form-item', {
         props: {

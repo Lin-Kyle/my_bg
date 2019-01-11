@@ -21,7 +21,8 @@ export default {
               data: item,
               value: this.value,
               itemValue: this.value[item.$id],
-              disabled: this.disabled
+              disabled: this.disabled,
+              readonly: true
             },
             on: {
               updateValue: this.updateValue,
@@ -37,7 +38,7 @@ export default {
         })
         .concat(this.$slots.default)
     )
-    console.log(dom)
+    // console.log(dom)
     return dom
   },
   components: {
@@ -52,6 +53,13 @@ export default {
         this[item] = this.$refs.elForm[item]
       })
     })
+  },
+  beforeUpdate(a, b) {
+    console.log(this.value, this.$props.content)
+    this.$props.content.map(item => {
+        if (this.value[item.$id] !== item.$default) this.updateValue({ id: item.$id, value: item.$default })
+      }
+    )
   },
   props: Object.assign({}, Form.props, {
     content: {
@@ -96,6 +104,7 @@ export default {
      * @param  {All} options.value 表单数据
      */
     updateValue({ id, value }) {
+      // console.log(this.value)
       this.value = Object.assign({}, this.value, {
         [id]: value
       })

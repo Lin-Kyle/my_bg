@@ -1,7 +1,8 @@
 <template>
   <div style="padding:30px;">
     <el-tabs type="border-card">
-      <el-tab-pane label="用户管理">
+      <el-tab-pane label="配置管理">配置管理</el-tab-pane>
+      <el-tab-pane label="添加字段">
         <el-button @click="showInput('input')">添加单行框</el-button>
         <el-button @click="showInput('textarea')">添加多行框</el-button>
         <el-button @click="showOptions('radio')">添加单选框</el-button>
@@ -9,7 +10,6 @@
         <el-button @click="showOptions('select')">添加下拉框</el-button>
         <el-button @click="addDate('date')">选择时间</el-button>
       </el-tab-pane>
-      <el-tab-pane label="配置管理">配置管理</el-tab-pane>
       <el-tab-pane label="角色管理">角色管理</el-tab-pane>
       <el-tab-pane label="定时任务补偿">定时任务补偿</el-tab-pane>
     </el-tabs>
@@ -21,7 +21,7 @@
         <span>预览</span>
       </div>
       <div class="text item">
-        <el-form-renderer :content="content" @whichclick="whichclick"/>
+        <el-form-renderer :content="content" @whichclick="whichclick" :key="123"/>
       </div>
     </el-card>
 
@@ -70,6 +70,7 @@
       $id: '',
       label: '',
       $default: '',
+      $readonly: true,
       placeholder: '',
       $el: {
         size: 'mini'
@@ -154,7 +155,7 @@
 
     methods: {
       whichclick(e) {
-        console.log(this.content.findIndex(item => item.$id === e))
+        // console.log(this.content.findIndex(item => item.$id === e))
         this.index = this.content.findIndex(item => item.$id === e)
         // console.log(this.content[this.index].$type)
         switch (this.content[this.index].$type) {
